@@ -107,7 +107,10 @@ const Charts = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="date" tickFormatter={formatDate} />
                         <YAxis domain={[80, 100]} />
-                        <Tooltip formatter={(value) => [`${value.toFixed(1)}%`, 'Disponibilidade']} />
+                        <Tooltip formatter={(value) => {
+                          const numValue = typeof value === 'number' ? value.toFixed(1) + '%' : value;
+                          return [numValue, 'Disponibilidade'];
+                        }} />
                         <Legend />
                         <Line 
                           type="monotone" 
@@ -226,7 +229,10 @@ const Charts = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
                         <YAxis label={{ value: 'Tonelada/Hora', angle: -90, position: 'insideLeft' }} />
-                        <Tooltip formatter={(value) => [`${value.toFixed(1)} ton/h`, 'Desempenho']} />
+                        <Tooltip formatter={(value) => {
+                          const numValue = typeof value === 'number' ? value.toFixed(1) + ' ton/h' : value;
+                          return [numValue, 'Desempenho'];
+                        }} />
                         <Legend />
                         <Bar dataKey="value" name="Tonelada/Hora" fill="#8884d8" />
                       </BarChart>
