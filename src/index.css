@@ -1,10 +1,11 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 210 33% 98%;
     --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
@@ -13,7 +14,7 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%;
+    --primary: 212 76% 23%;
     --primary-foreground: 210 40% 98%;
 
     --secondary: 210 40% 96.1%;
@@ -35,19 +36,12 @@
     --radius: 0.5rem;
 
     --sidebar-background: 0 0% 98%;
-
     --sidebar-foreground: 240 5.3% 26.1%;
-
     --sidebar-primary: 240 5.9% 10%;
-
     --sidebar-primary-foreground: 0 0% 98%;
-
     --sidebar-accent: 240 4.8% 95.9%;
-
     --sidebar-accent-foreground: 240 5.9% 10%;
-
     --sidebar-border: 220 13% 91%;
-
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
 
@@ -96,6 +90,33 @@
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-industrial-background text-foreground;
+  }
+}
+
+@layer components {
+  .gauge-container {
+    @apply relative h-40 w-40 flex items-center justify-center;
+  }
+  
+  .gauge-background {
+    @apply absolute inset-0 rounded-full border-8 border-gray-200;
+  }
+  
+  .gauge-indicator {
+    @apply absolute inset-0 rounded-full border-8 border-transparent;
+    clip-path: polygon(50% 50%, 100% 0%, 100% 50%);
+  }
+  
+  .gauge-value {
+    @apply absolute font-bold text-xl;
+  }
+  
+  .sensor-indicator {
+    @apply flex items-center gap-2 border rounded-lg p-3 shadow-sm;
+  }
+  
+  .status-indicator {
+    @apply w-4 h-4 rounded-full;
   }
 }
