@@ -7,8 +7,8 @@ import { Link } from 'react-router-dom';
 const sidebarItems = [
   { name: 'Dashboard', icon: Gauge, path: '/' },
   { name: 'Armazenamento', icon: Database, path: '/storage' },
-  { name: 'Secadores', icon: Droplets, path: '/secadores' }, // Updated path
-  { name: 'Monitoramento', icon: Monitor, path: '#' },
+  { name: 'Secadores', icon: Droplets, path: '/secadores' }, 
+  { name: 'Monitoramento', icon: Monitor, path: '/monitoring' },
   { name: 'Transporte', icon: Truck, path: '#' },
   { name: 'Gestão de Silos', icon: Wheat, path: '#' },
   { name: 'Configurações', icon: Settings, path: '#' },
