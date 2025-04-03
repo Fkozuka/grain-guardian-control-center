@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
@@ -93,7 +94,7 @@ const Charts = () => {
                         <XAxis dataKey="name" />
                         <YAxis />
                         <Tooltip formatter={(value) => {
-                          const formattedValue = safeFormatValue(value);
+                          const formattedValue = safeFormatValue(value as string | number);
                           return [formattedValue, 'Quantidade'];
                         }} />
                         <Legend />
@@ -114,7 +115,7 @@ const Charts = () => {
                         <XAxis dataKey="date" tickFormatter={formatDate} />
                         <YAxis domain={[80, 100]} />
                         <Tooltip formatter={(value) => {
-                          const formattedValue = safeFormatValue(value);
+                          const formattedValue = safeFormatValue(value as string | number);
                           return [formattedValue + '%', 'Disponibilidade'];
                         }} />
                         <Legend />
@@ -236,7 +237,7 @@ const Charts = () => {
                         <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
                         <YAxis label={{ value: 'Tonelada/Hora', angle: -90, position: 'insideLeft' }} />
                         <Tooltip formatter={(value) => {
-                          const numValue = safeFormatValue(value) + ' ton/h';
+                          const numValue = safeFormatValue(value as string | number) + ' ton/h';
                           return [numValue, 'Desempenho'];
                         }} />
                         <Legend />
