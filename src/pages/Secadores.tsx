@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
@@ -164,7 +165,7 @@ const Secadores: React.FC = () => {
                             {format(date, 'dd/MM/yyyy')}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0" align="start">
+                        <PopoverContent className="w-auto p-0 z-50" align="start">
                           <Calendar
                             mode="single"
                             selected={date}
@@ -192,7 +193,7 @@ const Secadores: React.FC = () => {
                     </div>
                   </div>
                   
-                  <div className="mt-4 h-80">
+                  <div className="mt-4 h-80 relative">
                     <ResponsiveContainer width="100%" height="100%">
                       <LineChart data={chartData}>
                         <CartesianGrid strokeDasharray="3 3" />
