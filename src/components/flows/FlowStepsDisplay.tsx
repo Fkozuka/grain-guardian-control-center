@@ -13,7 +13,7 @@ interface FlowStep {
 
 interface FlowStepsDisplayProps {
   steps: FlowStep[];
-  variant?: 'default' | 'active' | 'blocked';
+  variant?: 'default' | 'available' | 'active' | 'blocked';
 }
 
 const FlowStepsDisplay: React.FC<FlowStepsDisplayProps> = ({ steps, variant = 'default' }) => {
@@ -26,6 +26,7 @@ const FlowStepsDisplay: React.FC<FlowStepsDisplayProps> = ({ steps, variant = 'd
       return 'bg-red-100 border border-red-200 text-red-800';
     }
     
+    // 'available' and 'default' will both use the default styling
     return 'bg-gray-100';
   };
 
@@ -38,6 +39,7 @@ const FlowStepsDisplay: React.FC<FlowStepsDisplayProps> = ({ steps, variant = 'd
       return 'text-red-400';
     }
     
+    // 'available' and 'default' will both use the default styling
     return 'text-gray-400';
   };
 
