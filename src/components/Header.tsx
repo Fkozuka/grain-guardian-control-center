@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Gauge, Wheat, Clock, Map } from 'lucide-react';
+import { Gauge, Wheat, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
 import { Button } from '@/components/button';  // Corrected import path
@@ -31,9 +31,9 @@ const Header = () => {
         
         <div className="flex flex-col md:flex-row items-center gap-6">
           <Button variant="industrial" asChild className="border border-white/20">
-            <Link to="/fluxograma" className="flex items-center gap-2">
-              <Map size={18} />
-              <span>Fluxograma Interativo</span>
+            <Link to="/fluxo-transferencia" className="flex items-center gap-2">
+              <ArrowRight size={18} />
+              <span>Fluxo de Transferência</span>
             </Link>
           </Button>
           

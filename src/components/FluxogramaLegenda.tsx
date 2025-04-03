@@ -37,23 +37,19 @@ const FluxogramaLegenda: React.FC = () => {
             <h3 className="font-medium">Tipos de Equipamentos</h3>
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white text-xs">E</div>
+                <div className="flex items-center justify-center w-6 h-6 bg-blue-500 rounded-full text-white text-xs">M</div>
+                <span>MG: Moegas</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-full text-white text-xs">E</div>
                 <span>EL: Elevadores</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-green-500 rounded-full text-white text-xs">T</div>
-                <span>TC: Transportadores por corrente</span>
+                <div className="flex items-center justify-center w-6 h-6 bg-yellow-500 rounded-full text-white text-xs">V</div>
+                <span>VB/VT: Válvulas</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-yellow-500 rounded-full text-white text-xs">R</div>
-                <span>TR/RT: Transportadores por rosca</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-red-500 rounded-full text-white text-xs">V</div>
-                <span>VL: Válvulas</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <div className="flex items-center justify-center w-6 h-6 bg-gray-500 rounded-full text-white text-xs">S</div>
+                <div className="flex items-center justify-center w-6 h-6 bg-red-500 rounded-full text-white text-xs">S</div>
                 <span>SL: Silos</span>
               </div>
             </div>
@@ -64,10 +60,10 @@ const FluxogramaLegenda: React.FC = () => {
             <div className="text-sm text-gray-600">
               <h3 className="font-medium mb-2">Instruções de Uso:</h3>
               <ul className="list-disc pl-5 space-y-1">
-                <li>Clique nos pontos para ver detalhes dos equipamentos</li>
-                <li>Use os botões de zoom para ampliar ou reduzir a visualização</li>
-                <li>Arraste o fluxograma com o mouse para navegar pela imagem</li>
-                <li>Alterne entre as abas para visualizar os diferentes fluxogramas</li>
+                <li>Selecione os componentes na sequência correta para criar um fluxo de transferência</li>
+                <li>Verifique o status de cada equipamento antes de confirmar o fluxo</li>
+                <li>Use as abas para visualizar fluxos possíveis, ativos e bloqueados</li>
+                <li>Fluxos com equipamentos em falha não podem ser ativados</li>
               </ul>
             </div>
           </div>
