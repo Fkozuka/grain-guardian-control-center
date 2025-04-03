@@ -1,12 +1,13 @@
 
 import React from 'react';
-import { Gauge, Database, Monitor, Settings, Truck, Wheat } from 'lucide-react';
+import { Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate, useLocation } from 'react-router-dom';
 
 const sidebarItems = [
   { name: 'Dashboard', icon: Gauge, path: '/' },
   { name: 'Armazenamento', icon: Database, path: '/storage' },
+  { name: 'Secadores', icon: Droplets, path: '/secadores' },
   { name: 'Monitoramento', icon: Monitor, path: '#' },
   { name: 'Transporte', icon: Truck, path: '#' },
   { name: 'Gestão de Silos', icon: Wheat, path: '#' },
