@@ -3,7 +3,7 @@ import React from 'react';
 import { Gauge, Wheat, Clock, Map } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/components/button';  // Changed from ui/button to button
 
 const Header = () => {
   const currentDate = new Date().toLocaleDateString('pt-BR', {
