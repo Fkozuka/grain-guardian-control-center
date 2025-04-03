@@ -1,12 +1,13 @@
 
 import React, { useState } from 'react';
-import { Menu, X, Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets, BarChart } from 'lucide-react';
+import { Menu, X, Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets, BarChart, Map } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link } from 'react-router-dom';
 
 const navItems = [
   { name: 'Dashboard', icon: Gauge, path: '/' },
+  { name: 'Fluxograma', icon: Map, path: '/fluxograma' },
   { name: 'Armazenamento', icon: Database, path: '/storage' },
   { name: 'Secadores', icon: Droplets, path: '/secadores' },
   { name: 'Monitoramento', icon: Monitor, path: '/monitoring' },

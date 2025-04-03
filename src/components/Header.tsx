@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { Gauge, Wheat, Clock } from 'lucide-react';
+import { Gauge, Wheat, Clock, Map } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
+import { Button } from '@/components/ui/button';
 
 const Header = () => {
   const currentDate = new Date().toLocaleDateString('pt-BR', {
@@ -26,13 +28,23 @@ const Header = () => {
           </div>
           <MobileNav />
         </div>
-        <div className="flex items-center gap-6">
-          <div className="flex items-center gap-2">
-            <Clock size={20} />
-            <span className="font-medium">{currentTime}</span>
-          </div>
-          <div className="hidden md:flex items-center gap-2 text-sm text-gray-300">
-            <span>{currentDate}</span>
+        
+        <div className="flex flex-col md:flex-row items-center gap-6">
+          <Button variant="industrial" asChild className="border border-white/20">
+            <Link to="/fluxograma" className="flex items-center gap-2">
+              <Map size={18} />
+              <span>Fluxograma Interativo</span>
+            </Link>
+          </Button>
+          
+          <div className="flex items-center gap-6">
+            <div className="flex items-center gap-2">
+              <Clock size={20} />
+              <span className="font-medium">{currentTime}</span>
+            </div>
+            <div className="hidden md:flex items-center gap-2 text-sm text-gray-300">
+              <span>{currentDate}</span>
+            </div>
           </div>
         </div>
       </div>
