@@ -3,7 +3,8 @@ import React from 'react';
 import { Gauge, Wheat, Clock, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
-import { Button } from '@/components/button';  // Corrected import path
+import { Button } from '@/components/button';
+import UserMenu from './UserMenu';
 
 const Header = () => {
   const currentDate = new Date().toLocaleDateString('pt-BR', {
@@ -45,6 +46,7 @@ const Header = () => {
             <div className="hidden md:flex items-center gap-2 text-sm text-gray-300">
               <span>{currentDate}</span>
             </div>
+            <UserMenu />
           </div>
         </div>
       </div>
