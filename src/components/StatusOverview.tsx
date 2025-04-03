@@ -1,11 +1,17 @@
 
 import React from 'react';
 import SensorCard from './SensorCard';
-import { Gauge, Clock, Truck, Database, Monitor } from 'lucide-react';
+import { Gauge, Clock, Truck, Database, Package } from 'lucide-react';
 
 const StatusOverview: React.FC = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-5 gap-4 mb-6">
+      <SensorCard
+        title="Expedição"
+        value="Ativo"
+        status="normal"
+        icon={<Package size={20} />}
+      />
       <SensorCard
         title="Recebimento"
         value="Ativo"
@@ -33,14 +39,9 @@ const StatusOverview: React.FC = () => {
         status="normal"
         icon={<Database size={20} />}
       />
-      <SensorCard
-        title="Tempo de Operação"
-        value="8h32m"
-        status="normal"
-        icon={<Clock size={20} />}
-      />
     </div>
   );
 };
 
 export default StatusOverview;
+
