@@ -3,7 +3,7 @@ import React from 'react';
 import { Gauge, Wheat, Clock, Map } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import MobileNav from './MobileNav';
-import { Button } from '@/components/ui/button';  // Corrected import path
+import { Button } from '@/components/button';  // Corrected import path
 
 const Header = () => {
   const currentDate = new Date().toLocaleDateString('pt-BR', {
@@ -30,7 +30,7 @@ const Header = () => {
         </div>
         
         <div className="flex flex-col md:flex-row items-center gap-6">
-          <Button variant="outline" asChild className="border border-white/20">
+          <Button variant="industrial" asChild className="border border-white/20">
             <Link to="/fluxograma" className="flex items-center gap-2">
               <Map size={18} />
               <span>Fluxograma Interativo</span>
@@ -53,4 +53,3 @@ const Header = () => {
 };
 
 export default Header;
-
