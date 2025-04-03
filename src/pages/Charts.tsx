@@ -17,8 +17,7 @@ import {
   CartesianGrid, 
   Tooltip, 
   Legend, 
-  ResponsiveContainer,
-  ValueType
+  ResponsiveContainer
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -57,11 +56,11 @@ const Charts = () => {
 
   const days = getDaysForPeriod();
 
-  const safeFormatValue = (value: ValueType | undefined): string => {
+  const safeFormatValue = (value: string | number | undefined): string => {
     if (typeof value === 'number') {
       return value.toFixed(1);
     }
-    return String(value);
+    return String(value || '');
   };
 
   const renderEquipmentCharts = (type: EquipmentType) => {
@@ -237,7 +236,7 @@ const Charts = () => {
                         <XAxis dataKey="name" angle={-45} textAnchor="end" height={70} />
                         <YAxis label={{ value: 'Tonelada/Hora', angle: -90, position: 'insideLeft' }} />
                         <Tooltip formatter={(value) => {
-                          const numValue = typeof value === 'number' ? value.toFixed(1) + ' ton/h' : value;
+                          const numValue = safeFormatValue(value) + ' ton/h';
                           return [numValue, 'Desempenho'];
                         }} />
                         <Legend />
