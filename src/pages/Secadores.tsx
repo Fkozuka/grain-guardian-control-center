@@ -1,5 +1,6 @@
-
 import React, { useState } from 'react';
+import Header from '@/components/Header';
+import Sidebar from '@/components/Sidebar';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Droplets, Thermometer, ArrowDownUp, Clock } from 'lucide-react';
@@ -7,14 +8,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { format } from 'date-fns';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import SensorCard from '@/components/SensorCard';
 
-// Sample data for the dryers
 const sampleDryerData = {
   secador1: {
     unidadeEntrada: 18.5,
@@ -38,7 +37,6 @@ const sampleDryerData = {
   }
 };
 
-// Sample historical data for the chart
 const generateChartData = () => {
   const data = [];
   const now = new Date();
@@ -84,7 +82,6 @@ const Secadores: React.FC = () => {
     toneladaHoraSaida: "Saída (t/h)"
   };
   
-  // Get chart lines based on the selected parameter
   const getChartLines = () => {
     if (selectedParameter === "all") {
       return (
@@ -108,108 +105,115 @@ const Secadores: React.FC = () => {
   };
   
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-4 flex items-center">
-        <Droplets className="mr-2" /> Secadores
-      </h1>
-      
-      <Tabs defaultValue="secador1" onValueChange={setSelectedDryer}>
-        <TabsList className="w-full mb-4">
-          <TabsTrigger value="secador1" className="flex-1">Secador 1</TabsTrigger>
-          <TabsTrigger value="secador2" className="flex-1">Secador 2</TabsTrigger>
-        </TabsList>
-        
-        <TabsContent value="secador1" className="animate-fade-in">
-          <SecadorDashboard data={sampleDryerData.secador1} secadorId="1" />
-        </TabsContent>
-        
-        <TabsContent value="secador2" className="animate-fade-in">
-          <SecadorDashboard data={sampleDryerData.secador2} secadorId="2" />
-        </TabsContent>
-      </Tabs>
-      
-      <div className="mt-8">
-        <Card>
-          <CardHeader>
-            <CardTitle>Monitoramento de Desempenho</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 mb-4 md:grid-cols-3">
-              <div>
-                <Label htmlFor="parameter">Parâmetro</Label>
-                <Select value={selectedParameter} onValueChange={setSelectedParameter}>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o parâmetro" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">Todas as Temperaturas</SelectItem>
-                    <SelectItem value="temperaturaQueimador">Temperatura Queimador</SelectItem>
-                    <SelectItem value="temperaturaFornalha">Temperatura Fornalha</SelectItem>
-                    <SelectItem value="temperaturaEntrada">Temperatura Entrada</SelectItem>
-                    <SelectItem value="temperaturaSaida">Temperatura Saída</SelectItem>
-                    <SelectItem value="unidadeEntrada">Unidade de Entrada</SelectItem>
-                    <SelectItem value="unidadeSaida">Unidade de Saída</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              
-              <div>
-                <Label>Data</Label>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Button variant="outline" className="w-full justify-start text-left">
-                      <Calendar className="mr-2 h-4 w-4" />
-                      {format(date, 'dd/MM/yyyy')}
-                    </Button>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={date}
-                      onSelect={(newDate) => newDate && setDate(newDate)}
-                      initialFocus
-                      className="p-3 pointer-events-auto"
-                    />
-                  </PopoverContent>
-                </Popover>
-              </div>
-              
-              <div>
-                <Label htmlFor="time">Período</Label>
-                <Select defaultValue="24h">
-                  <SelectTrigger>
-                    <SelectValue placeholder="Selecione o período" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="6h">Últimas 6 horas</SelectItem>
-                    <SelectItem value="12h">Últimas 12 horas</SelectItem>
-                    <SelectItem value="24h">Últimas 24 horas</SelectItem>
-                    <SelectItem value="7d">Últimos 7 dias</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
+    <div className="min-h-screen flex flex-col">
+      <Header />
+      <div className="flex flex-1 overflow-hidden">
+        <Sidebar />
+        <main className="flex-1 overflow-y-auto p-4 md:p-6">
+          <div className="container mx-auto">
+            <h1 className="text-2xl font-bold text-industrial-primary mb-6 flex items-center">
+              <Droplets className="mr-2" /> Secadores
+            </h1>
             
-            <div className="mt-4 h-80">
-              <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={chartData}>
-                  <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="time" />
-                  <YAxis />
-                  <Tooltip />
-                  <Legend />
-                  {getChartLines()}
-                </LineChart>
-              </ResponsiveContainer>
+            <Tabs defaultValue="secador1" onValueChange={setSelectedDryer}>
+              <TabsList className="w-full mb-4">
+                <TabsTrigger value="secador1" className="flex-1">Secador 1</TabsTrigger>
+                <TabsTrigger value="secador2" className="flex-1">Secador 2</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="secador1" className="animate-fade-in">
+                <SecadorDashboard data={sampleDryerData.secador1} secadorId="1" />
+              </TabsContent>
+              
+              <TabsContent value="secador2" className="animate-fade-in">
+                <SecadorDashboard data={sampleDryerData.secador2} secadorId="2" />
+              </TabsContent>
+            </Tabs>
+            
+            <div className="mt-8">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Monitoramento de Desempenho</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid gap-4 mb-4 md:grid-cols-3">
+                    <div>
+                      <Label htmlFor="parameter">Parâmetro</Label>
+                      <Select value={selectedParameter} onValueChange={setSelectedParameter}>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o parâmetro" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">Todas as Temperaturas</SelectItem>
+                          <SelectItem value="temperaturaQueimador">Temperatura Queimador</SelectItem>
+                          <SelectItem value="temperaturaFornalha">Temperatura Fornalha</SelectItem>
+                          <SelectItem value="temperaturaEntrada">Temperatura Entrada</SelectItem>
+                          <SelectItem value="temperaturaSaida">Temperatura Saída</SelectItem>
+                          <SelectItem value="unidadeEntrada">Unidade de Entrada</SelectItem>
+                          <SelectItem value="unidadeSaida">Unidade de Saída</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    
+                    <div>
+                      <Label>Data</Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Button variant="outline" className="w-full justify-start text-left">
+                            <Calendar className="mr-2 h-4 w-4" />
+                            {format(date, 'dd/MM/yyyy')}
+                          </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={date}
+                            onSelect={(newDate) => newDate && setDate(newDate)}
+                            initialFocus
+                            className="p-3 pointer-events-auto"
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                    
+                    <div>
+                      <Label htmlFor="time">Período</Label>
+                      <Select defaultValue="24h">
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selecione o período" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="6h">Últimas 6 horas</SelectItem>
+                          <SelectItem value="12h">Últimas 12 horas</SelectItem>
+                          <SelectItem value="24h">Últimas 24 horas</SelectItem>
+                          <SelectItem value="7d">Últimos 7 dias</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                  
+                  <div className="mt-4 h-80">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={chartData}>
+                        <CartesianGrid strokeDasharray="3 3" />
+                        <XAxis dataKey="time" />
+                        <YAxis />
+                        <Tooltip />
+                        <Legend />
+                        {getChartLines()}
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </CardContent>
+              </Card>
             </div>
-          </CardContent>
-        </Card>
+          </div>
+        </main>
       </div>
     </div>
   );
 };
 
-// Dryer Dashboard Component
 interface SecadorDashboardProps {
   data: {
     unidadeEntrada: number;
