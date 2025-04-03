@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Menu, X, Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const navItems = [
   { name: 'Dashboard', icon: Gauge, path: '/' },
@@ -17,12 +17,11 @@ const navItems = [
 
 const MobileNav: React.FC = () => {
   const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
-  const location = useLocation();
-
-  const handleNavigation = (path: string) => {
-    if (path !== '#') {
-      navigate(path);
+  
+  const handleNavigation = (path: string, e: React.MouseEvent) => {
+    if (path === '#') {
+      e.preventDefault();
+    } else {
       setOpen(false);
     }
   };
@@ -42,13 +41,20 @@ const MobileNav: React.FC = () => {
                 <Button
                   key={item.name}
                   variant="ghost"
-                  className={`w-full justify-start text-white hover:bg-industrial-primary/80 hover:text-white ${
-                    location.pathname === item.path ? 'bg-industrial-primary/40' : ''
-                  }`}
-                  onClick={() => handleNavigation(item.path)}
+                  className="w-full justify-start text-white hover:bg-industrial-primary/80 hover:text-white"
+                  asChild
                 >
-                  <item.icon className="mr-2 h-5 w-5" />
-                  {item.name}
+                  {item.path !== '#' ? (
+                    <Link to={item.path} onClick={(e) => handleNavigation(item.path, e)}>
+                      <item.icon className="mr-2 h-5 w-5" />
+                      {item.name}
+                    </Link>
+                  ) : (
+                    <a href={item.path} onClick={(e) => handleNavigation(item.path, e)}>
+                      <item.icon className="mr-2 h-5 w-5" />
+                      {item.name}
+                    </a>
+                  )}
                 </Button>
               ))}
             </div>
