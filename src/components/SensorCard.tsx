@@ -23,15 +23,15 @@ const SensorCard: React.FC<SensorCardProps> = ({
   };
 
   return (
-    <div className="sensor-indicator bg-white">
-      <div className={`status-indicator ${statusColors[status]}`}></div>
-      <div className="flex-1">
-        <div className="text-sm text-industrial-gray">{title}</div>
-        <div className="text-lg font-bold">
+    <div className="sensor-indicator bg-white p-4 rounded-lg border shadow-sm flex items-center relative overflow-hidden">
+      <div className={`status-indicator w-1 absolute left-0 top-0 bottom-0 ${statusColors[status]}`}></div>
+      <div className="flex-1 ml-2">
+        <div className="text-sm text-industrial-gray font-medium">{title}</div>
+        <div className="text-xl font-bold">
           {value}{unit && <span className="text-xs ml-1">{unit}</span>}
         </div>
       </div>
-      <div className="text-industrial-primary">
+      <div className="text-industrial-primary text-opacity-80">
         {icon}
       </div>
     </div>
