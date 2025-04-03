@@ -7,7 +7,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const sidebarItems = [
   { name: 'Dashboard', icon: Gauge, path: '/' },
   { name: 'Armazenamento', icon: Database, path: '/storage' },
-  { name: 'Secadores', icon: Droplets, path: '/secadores' },
+  { name: 'Secadores', icon: Droplets, path: '/secadores' }, // Updated path
   { name: 'Monitoramento', icon: Monitor, path: '#' },
   { name: 'Transporte', icon: Truck, path: '#' },
   { name: 'Gestão de Silos', icon: Wheat, path: '#' },
