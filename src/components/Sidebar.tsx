@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets } from 'lucide-react';
+import { Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets, BarChart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -9,6 +9,7 @@ const sidebarItems = [
   { name: 'Armazenamento', icon: Database, path: '/storage' },
   { name: 'Secadores', icon: Droplets, path: '/secadores' }, 
   { name: 'Monitoramento', icon: Monitor, path: '/monitoring' },
+  { name: 'Gráficos', icon: BarChart, path: '/charts' },
   { name: 'Transporte', icon: Truck, path: '#' },
   { name: 'Gestão de Silos', icon: Wheat, path: '#' },
   { name: 'Configurações', icon: Settings, path: '#' },

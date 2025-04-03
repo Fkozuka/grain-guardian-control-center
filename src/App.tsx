@@ -9,6 +9,7 @@ import Storage from "./pages/Storage";
 import NotFound from "./pages/NotFound";
 import Secadores from "./pages/Secadores";
 import Monitoring from "./pages/Monitoring";
+import Charts from "./pages/Charts";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/storage" element={<Storage />} />
           <Route path="/secadores" element={<Secadores />} />
           <Route path="/monitoring" element={<Monitoring />} />
+          <Route path="/charts" element={<Charts />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
