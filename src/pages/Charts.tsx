@@ -1,5 +1,5 @@
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
@@ -7,7 +7,7 @@ import MobileNav from '@/components/MobileNav';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { equipmentList, linesList, shiftsList } from '@/utils/chartsData';
 
-// Import our new components
+// Import our components
 import FilterControls from '@/components/charts/FilterControls';
 import TonsPerHourChart from '@/components/charts/TonsPerHourChart';
 import ReceptionProgressChart from '@/components/charts/ReceptionProgressChart';
@@ -17,6 +17,17 @@ const Charts = () => {
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');
   const [selectedLine, setSelectedLine] = useState<string>('all');
   const [selectedShift, setSelectedShift] = useState<string>('all');
+  const [selectedEquipment, setSelectedEquipment] = useState<string>('all');
+
+  // Create a flat array of all equipment for the filter
+  const allEquipmentsList = useMemo(() => {
+    return [
+      ...equipmentList.elevadores,
+      ...equipmentList.corrente,
+      ...equipmentList.fita,
+      ...equipmentList.rosca
+    ];
+  }, []);
 
   return (
     <>
@@ -34,16 +45,22 @@ const Charts = () => {
                 period={period}
                 selectedLine={selectedLine}
                 selectedShift={selectedShift}
+                selectedEquipment={selectedEquipment}
                 setPeriod={setPeriod}
                 setSelectedLine={setSelectedLine}
                 setSelectedShift={setSelectedShift}
+                setSelectedEquipment={setSelectedEquipment}
                 linesList={linesList}
                 shiftsList={shiftsList}
+                equipmentList={allEquipmentsList}
               />
             </div>
             
             <div className="grid grid-cols-1 gap-6 mb-6">
-              <TonsPerHourChart equipmentList={equipmentList} />
+              <TonsPerHourChart 
+                equipmentList={equipmentList} 
+                selectedEquipment={selectedEquipment} 
+              />
               <ReceptionProgressChart />
             </div>
             
@@ -56,19 +73,35 @@ const Charts = () => {
               </TabsList>
               
               <TabsContent value="elevadores" className="mt-0">
-                <EquipmentCharts type="elevadores" period={period} />
+                <EquipmentCharts 
+                  type="elevadores" 
+                  period={period} 
+                  selectedEquipment={selectedEquipment} 
+                />
               </TabsContent>
               
               <TabsContent value="corrente" className="mt-0">
-                <EquipmentCharts type="corrente" period={period} />
+                <EquipmentCharts 
+                  type="corrente" 
+                  period={period} 
+                  selectedEquipment={selectedEquipment} 
+                />
               </TabsContent>
               
               <TabsContent value="fita" className="mt-0">
-                <EquipmentCharts type="fita" period={period} />
+                <EquipmentCharts 
+                  type="fita" 
+                  period={period} 
+                  selectedEquipment={selectedEquipment} 
+                />
               </TabsContent>
               
               <TabsContent value="rosca" className="mt-0">
-                <EquipmentCharts type="rosca" period={period} />
+                <EquipmentCharts 
+                  type="rosca" 
+                  period={period} 
+                  selectedEquipment={selectedEquipment} 
+                />
               </TabsContent>
             </Tabs>
           </div>

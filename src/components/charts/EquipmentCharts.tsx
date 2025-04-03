@@ -24,9 +24,10 @@ import {
 interface EquipmentChartsProps {
   type: EquipmentType;
   period: 'today' | 'week' | 'month';
+  selectedEquipment: string;
 }
 
-const EquipmentCharts: React.FC<EquipmentChartsProps> = ({ type, period }) => {
+const EquipmentCharts: React.FC<EquipmentChartsProps> = ({ type, period, selectedEquipment }) => {
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
@@ -60,9 +61,14 @@ const EquipmentCharts: React.FC<EquipmentChartsProps> = ({ type, period }) => {
     rosca: ['Transportador por Rosca 1', 'Transportador por Rosca 2']
   };
   
+  // Filter the equipment list based on selected equipment
+  const filteredEquipmentList = selectedEquipment === 'all' 
+    ? equipmentList[type]
+    : equipmentList[type].filter(equipment => equipment === selectedEquipment);
+  
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-      {equipmentList[type].map((equipment) => (
+      {filteredEquipmentList.map((equipment) => (
         <Card key={equipment} className="shadow-md">
           <CardHeader className="pb-2">
             <CardTitle className="text-lg">{equipment}</CardTitle>

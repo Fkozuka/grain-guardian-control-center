@@ -16,14 +16,31 @@ import { EquipmentType } from '@/utils/chartsData';
 
 interface TonsPerHourChartProps {
   equipmentList: Record<EquipmentType, string[]>;
+  selectedEquipment: string;
 }
 
-const TonsPerHourChart: React.FC<TonsPerHourChartProps> = ({ equipmentList }) => {
+const TonsPerHourChart: React.FC<TonsPerHourChartProps> = ({ equipmentList, selectedEquipment }) => {
   const safeFormatValue = (value: string | number | undefined): string => {
     if (typeof value === 'number') {
       return value.toFixed(1);
     }
     return String(value || '');
+  };
+  
+  // Create and filter chart data based on selected equipment
+  const getData = () => {
+    const allData = [
+      ...generateTonsPerHourData(equipmentList.elevadores),
+      ...generateTonsPerHourData(equipmentList.corrente),
+      ...generateTonsPerHourData(equipmentList.fita),
+      ...generateTonsPerHourData(equipmentList.rosca)
+    ];
+    
+    if (selectedEquipment === 'all') {
+      return allData;
+    }
+    
+    return allData.filter(item => item.name === selectedEquipment);
   };
   
   return (
@@ -35,12 +52,7 @@ const TonsPerHourChart: React.FC<TonsPerHourChartProps> = ({ equipmentList }) =>
         <div className="h-80">
           <ResponsiveContainer width="100%" height="100%">
             <BarChart
-              data={[
-                ...generateTonsPerHourData(equipmentList.elevadores),
-                ...generateTonsPerHourData(equipmentList.corrente),
-                ...generateTonsPerHourData(equipmentList.fita),
-                ...generateTonsPerHourData(equipmentList.rosca)
-              ]}
+              data={getData()}
               margin={{ top: 5, right: 30, left: 20, bottom: 20 }}
             >
               <CartesianGrid strokeDasharray="3 3" />

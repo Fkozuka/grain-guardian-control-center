@@ -6,22 +6,28 @@ interface FilterControlsProps {
   period: 'today' | 'week' | 'month';
   selectedLine: string;
   selectedShift: string;
+  selectedEquipment: string;
   setPeriod: (period: 'today' | 'week' | 'month') => void;
   setSelectedLine: (line: string) => void;
   setSelectedShift: (shift: string) => void;
+  setSelectedEquipment: (equipment: string) => void;
   linesList: string[];
   shiftsList: string[];
+  equipmentList: string[];
 }
 
 const FilterControls: React.FC<FilterControlsProps> = ({
   period,
   selectedLine,
   selectedShift,
+  selectedEquipment,
   setPeriod,
   setSelectedLine,
   setSelectedShift,
+  setSelectedEquipment,
   linesList,
-  shiftsList
+  shiftsList,
+  equipmentList
 }) => {
   return (
     <div className="flex flex-wrap gap-2 mt-4 md:mt-0">
@@ -56,6 +62,18 @@ const FilterControls: React.FC<FilterControlsProps> = ({
           <SelectItem value="all">Todos Turnos</SelectItem>
           {shiftsList.map(shift => (
             <SelectItem key={shift} value={shift}>Turno {shift}</SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select value={selectedEquipment} onValueChange={setSelectedEquipment}>
+        <SelectTrigger className="w-[120px]">
+          <SelectValue placeholder="Equipamento" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Todos Equipamentos</SelectItem>
+          {equipmentList.map(equipment => (
+            <SelectItem key={equipment} value={equipment}>{equipment}</SelectItem>
           ))}
         </SelectContent>
       </Select>
