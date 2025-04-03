@@ -39,9 +39,10 @@ const Monitoring = () => {
         <Sidebar />
         
         <div className="flex flex-1 flex-col overflow-hidden">
-          <Header title="Monitoramento" />
+          <Header />
           
           <div className="flex-1 overflow-auto p-4 md:p-6">
+            <h1 className="text-2xl font-bold mb-6">Monitoramento</h1>
             <Tabs defaultValue="elevadores" className="w-full">
               <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
                 <TabsTrigger value="elevadores">Elevadores</TabsTrigger>
