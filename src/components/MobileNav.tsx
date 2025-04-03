@@ -3,18 +3,28 @@ import React, { useState } from 'react';
 import { Menu, X, Gauge, Database, Monitor, Settings, Truck, Wheat } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const navItems = [
-  { name: 'Dashboard', icon: Gauge },
-  { name: 'Armazenamento', icon: Database },
-  { name: 'Monitoramento', icon: Monitor },
-  { name: 'Transporte', icon: Truck },
-  { name: 'Gestão de Silos', icon: Wheat },
-  { name: 'Configurações', icon: Settings },
+  { name: 'Dashboard', icon: Gauge, path: '/' },
+  { name: 'Armazenamento', icon: Database, path: '/storage' },
+  { name: 'Monitoramento', icon: Monitor, path: '#' },
+  { name: 'Transporte', icon: Truck, path: '#' },
+  { name: 'Gestão de Silos', icon: Wheat, path: '#' },
+  { name: 'Configurações', icon: Settings, path: '#' },
 ];
 
 const MobileNav: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (path: string) => {
+    if (path !== '#') {
+      navigate(path);
+      setOpen(false);
+    }
+  };
 
   return (
     <div className="md:hidden">
@@ -31,8 +41,10 @@ const MobileNav: React.FC = () => {
                 <Button
                   key={item.name}
                   variant="ghost"
-                  className="w-full justify-start text-white hover:bg-industrial-primary/80 hover:text-white"
-                  onClick={() => setOpen(false)}
+                  className={`w-full justify-start text-white hover:bg-industrial-primary/80 hover:text-white ${
+                    location.pathname === item.path ? 'bg-industrial-primary/40' : ''
+                  }`}
+                  onClick={() => handleNavigation(item.path)}
                 >
                   <item.icon className="mr-2 h-5 w-5" />
                   {item.name}

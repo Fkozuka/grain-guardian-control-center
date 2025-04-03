@@ -2,17 +2,27 @@
 import React from 'react';
 import { Gauge, Database, Monitor, Settings, Truck, Wheat } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const sidebarItems = [
-  { name: 'Dashboard', icon: Gauge },
-  { name: 'Armazenamento', icon: Database },
-  { name: 'Monitoramento', icon: Monitor },
-  { name: 'Transporte', icon: Truck },
-  { name: 'Gestão de Silos', icon: Wheat },
-  { name: 'Configurações', icon: Settings },
+  { name: 'Dashboard', icon: Gauge, path: '/' },
+  { name: 'Armazenamento', icon: Database, path: '/storage' },
+  { name: 'Monitoramento', icon: Monitor, path: '#' },
+  { name: 'Transporte', icon: Truck, path: '#' },
+  { name: 'Gestão de Silos', icon: Wheat, path: '#' },
+  { name: 'Configurações', icon: Settings, path: '#' },
 ];
 
 const Sidebar = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handleNavigation = (path: string) => {
+    if (path !== '#') {
+      navigate(path);
+    }
+  };
+
   return (
     <div className="bg-industrial-primary text-white w-64 flex-shrink-0 hidden md:block">
       <div className="p-4 h-full flex flex-col">
@@ -21,7 +31,10 @@ const Sidebar = () => {
             <Button
               key={item.name}
               variant="ghost"
-              className="w-full justify-start text-white hover:bg-industrial-primary/80 hover:text-white"
+              className={`w-full justify-start text-white hover:bg-industrial-primary/80 hover:text-white ${
+                location.pathname === item.path ? 'bg-industrial-primary/40' : ''
+              }`}
+              onClick={() => handleNavigation(item.path)}
             >
               <item.icon className="mr-2 h-5 w-5" />
               {item.name}
