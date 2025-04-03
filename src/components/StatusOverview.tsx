@@ -1,7 +1,7 @@
 
 import React from 'react';
 import SensorCard from './SensorCard';
-import { Gauge, Clock, Truck, Database, Package } from 'lucide-react';
+import { Gauge, Truck, Database, Package } from 'lucide-react';
 
 const StatusOverview: React.FC = () => {
   return (
@@ -19,20 +19,6 @@ const StatusOverview: React.FC = () => {
         icon={<Truck size={20} />}
       />
       <SensorCard
-        title="Temperatura Média"
-        value={24.5}
-        unit="°C"
-        status="normal"
-        icon={<Gauge size={20} />}
-      />
-      <SensorCard
-        title="Umidade Média"
-        value={68}
-        unit="%"
-        status="warning"
-        icon={<Gauge size={20} />}
-      />
-      <SensorCard
         title="Capacidade Utilizada"
         value={72}
         unit="%"
@@ -44,4 +30,3 @@ const StatusOverview: React.FC = () => {
 };
 
 export default StatusOverview;
-
