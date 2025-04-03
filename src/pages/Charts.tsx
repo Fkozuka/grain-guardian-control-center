@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
@@ -18,7 +17,8 @@ import {
   CartesianGrid, 
   Tooltip, 
   Legend, 
-  ResponsiveContainer 
+  ResponsiveContainer,
+  ValueType
 } from 'recharts';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { 
@@ -32,14 +32,12 @@ import {
   linesList,
   shiftsList
 } from '@/utils/chartsData';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
 
 const Charts = () => {
   const [period, setPeriod] = useState<'today' | 'week' | 'month'>('week');
   const [selectedLine, setSelectedLine] = useState<string>('all');
   const [selectedShift, setSelectedShift] = useState<string>('all');
 
-  // Get days based on selected period
   const getDaysForPeriod = () => {
     switch (period) {
       case 'today':
@@ -52,13 +50,19 @@ const Charts = () => {
     }
   };
 
-  // Format date for x-axis
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
     return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
   };
 
   const days = getDaysForPeriod();
+
+  const safeFormatValue = (value: ValueType | undefined): string => {
+    if (typeof value === 'number') {
+      return value.toFixed(1);
+    }
+    return String(value);
+  };
 
   const renderEquipmentCharts = (type: EquipmentType) => {
     return (
@@ -89,7 +93,10 @@ const Charts = () => {
                         <CartesianGrid strokeDasharray="3 3" />
                         <XAxis dataKey="name" />
                         <YAxis />
-                        <Tooltip />
+                        <Tooltip formatter={(value) => {
+                          const formattedValue = safeFormatValue(value);
+                          return [formattedValue, 'Quantidade'];
+                        }} />
                         <Legend />
                         <Bar dataKey="value" name="Quantidade" fill="#8884d8" />
                       </BarChart>
@@ -108,8 +115,8 @@ const Charts = () => {
                         <XAxis dataKey="date" tickFormatter={formatDate} />
                         <YAxis domain={[80, 100]} />
                         <Tooltip formatter={(value) => {
-                          const numValue = typeof value === 'number' ? value.toFixed(1) + '%' : value;
-                          return [numValue, 'Disponibilidade'];
+                          const formattedValue = safeFormatValue(value);
+                          return [formattedValue + '%', 'Disponibilidade'];
                         }} />
                         <Legend />
                         <Line 
