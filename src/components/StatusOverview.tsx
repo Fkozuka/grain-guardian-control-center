@@ -1,7 +1,6 @@
-
 import React from 'react';
 import SensorCard from './SensorCard';
-import { Gauge, Truck, Database, ArrowRight, Timeline } from 'lucide-react';
+import { Gauge, Truck, Database, ArrowRight, Send } from 'lucide-react';
 
 const StatusOverview: React.FC = () => {
   return (
@@ -10,7 +9,7 @@ const StatusOverview: React.FC = () => {
         title="Expedição"
         value="Ativo"
         status="normal"
-        icon={<Timeline size={20} />}
+        icon={<Send size={20} />}
       />
       <SensorCard
         title="Recebimento"
