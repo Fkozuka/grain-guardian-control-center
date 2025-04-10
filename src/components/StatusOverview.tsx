@@ -1,7 +1,7 @@
 
 import React from 'react';
 import SensorCard from './SensorCard';
-import { Gauge, Truck, Database, Package } from 'lucide-react';
+import { Gauge, Truck, Database, Package, AlertTriangle } from 'lucide-react';
 
 const StatusOverview: React.FC = () => {
   return (
@@ -24,6 +24,18 @@ const StatusOverview: React.FC = () => {
         unit="%"
         status="normal"
         icon={<Database size={20} />}
+      />
+      <SensorCard
+        title="Linha Suja"
+        value="Parcial"
+        status="warning"
+        icon={<AlertTriangle size={20} />}
+      />
+      <SensorCard
+        title="Linha Limpa"
+        value="Ativo"
+        status="normal"
+        icon={<Gauge size={20} />}
       />
     </div>
   );

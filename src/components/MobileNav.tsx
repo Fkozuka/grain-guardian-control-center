@@ -1,20 +1,17 @@
 
 import React, { useState } from 'react';
-import { Menu, X, Gauge, Database, Monitor, Settings, Truck, Wheat, Droplets, BarChart, Map } from 'lucide-react';
+import { Menu, Gauge, Database, Monitor, Droplets, BarChart, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { Link } from 'react-router-dom';
 
 const navItems = [
   { name: 'Dashboard', icon: Gauge, path: '/' },
-  { name: 'Fluxograma', icon: Map, path: '/fluxograma' },
+  { name: 'Fluxo de Transferência', icon: ArrowRight, path: '/fluxo-transferencia' },
   { name: 'Armazenamento', icon: Database, path: '/storage' },
   { name: 'Secadores', icon: Droplets, path: '/secadores' },
   { name: 'Monitoramento', icon: Monitor, path: '/monitoring' },
   { name: 'Gráficos', icon: BarChart, path: '/charts' },
-  { name: 'Transporte', icon: Truck, path: '#' },
-  { name: 'Gestão de Silos', icon: Wheat, path: '#' },
-  { name: 'Configurações', icon: Settings, path: '#' },
 ];
 
 const MobileNav: React.FC = () => {
