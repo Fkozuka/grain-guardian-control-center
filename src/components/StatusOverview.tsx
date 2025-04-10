@@ -1,7 +1,7 @@
 
 import React from 'react';
 import SensorCard from './SensorCard';
-import { Gauge, Truck, Database, Package, AlertTriangle } from 'lucide-react';
+import { Gauge, Truck, Database, ArrowRight, Timeline } from 'lucide-react';
 
 const StatusOverview: React.FC = () => {
   return (
@@ -10,7 +10,7 @@ const StatusOverview: React.FC = () => {
         title="Expedição"
         value="Ativo"
         status="normal"
-        icon={<Package size={20} />}
+        icon={<Timeline size={20} />}
       />
       <SensorCard
         title="Recebimento"
@@ -27,13 +27,15 @@ const StatusOverview: React.FC = () => {
       />
       <SensorCard
         title="Linha Suja"
-        value="Parcial"
+        value={120}
+        unit="ton/h"
         status="warning"
-        icon={<AlertTriangle size={20} />}
+        icon={<ArrowRight size={20} />}
       />
       <SensorCard
         title="Linha Limpa"
-        value="Ativo"
+        value={85}
+        unit="ton/h"
         status="normal"
         icon={<Gauge size={20} />}
       />

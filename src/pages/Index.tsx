@@ -5,8 +5,6 @@ import Sidebar from '@/components/Sidebar';
 import StatusOverview from '@/components/StatusOverview';
 import ActivityLog from '@/components/ActivityLog';
 import StorageTank from '@/components/StorageTank';
-import { Droplets, ArrowRight } from 'lucide-react'; 
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/card';
 
 const fakeSilos = [
   { id: 'SL-001', name: 'Silo 1', capacity: 10000, currentLevel: 8500, product: 'Soja', temperature: 22, humidity: 64 },
@@ -29,60 +27,8 @@ const Index = () => {
             
             <StatusOverview />
             
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
-              <Card className="bg-white p-4 rounded-lg shadow-sm">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <Droplets className="text-industrial-primary" size={20} />
-                    Fluxo Linha Suja
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col space-y-2">
-                    <div className="flex items-center justify-between border-b pb-2">
-                      <span className="text-sm font-medium">Moega 1</span>
-                      <span className="text-sm text-green-600">Ativo</span>
-                    </div>
-                    <div className="flex items-center justify-between border-b pb-2">
-                      <span className="text-sm font-medium">Transportador 1</span>
-                      <span className="text-sm text-green-600">Ativo</span>
-                    </div>
-                    <div className="flex items-center justify-between pb-2">
-                      <span className="text-sm font-medium">Pré-limpeza</span>
-                      <span className="text-sm text-yellow-600">Manutenção</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-white p-4 rounded-lg shadow-sm">
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <ArrowRight className="text-industrial-primary" size={20} />
-                    Fluxo Linha Limpa
-                  </CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col space-y-2">
-                    <div className="flex items-center justify-between border-b pb-2">
-                      <span className="text-sm font-medium">Elevador 2</span>
-                      <span className="text-sm text-green-600">Ativo</span>
-                    </div>
-                    <div className="flex items-center justify-between border-b pb-2">
-                      <span className="text-sm font-medium">Redler Distribuição</span>
-                      <span className="text-sm text-green-600">Ativo</span>
-                    </div>
-                    <div className="flex items-center justify-between pb-2">
-                      <span className="text-sm font-medium">Seletor de Destino</span>
-                      <span className="text-sm text-green-600">Ativo</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <div className="lg:col-span-1">
-                <ActivityLog />
-              </div>
+            <div className="grid grid-cols-1 lg:grid-cols-1 gap-6 mb-6">
+              <ActivityLog />
             </div>
             
             <div className="mb-6">
