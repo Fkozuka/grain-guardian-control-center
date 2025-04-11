@@ -25,7 +25,7 @@ const Header = () => {
         <div className="flex w-full md:w-auto justify-between items-center mb-3 md:mb-0">
           <div className="flex items-center gap-3">
             <Wheat size={32} className="text-industrial-warning" />
-            <h1 className="text-2xl font-bold">Grain Guardian</h1>
+            <h1 className="text-2xl font-bold">AgroFlow</h1>
           </div>
           <MobileNav />
         </div>

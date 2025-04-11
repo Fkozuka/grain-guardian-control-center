@@ -71,7 +71,7 @@ const Login = () => {
         </div>
         
         <h1 className="text-2xl font-bold text-center text-industrial-primary mb-6">
-          Grain Guardian
+          AgroFlow
         </h1>
         <h2 className="text-xl text-center text-gray-600 mb-8">
           Supervisório de Recebimento de Grãos
