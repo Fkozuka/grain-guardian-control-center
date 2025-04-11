@@ -1,4 +1,3 @@
-
 # Guia de Integração com Backend - Grain Guardian
 
 Este documento fornece orientações para integrar o frontend do Grain Guardian com um backend personalizado desenvolvido pelo curso. O frontend foi desenvolvido em React com TypeScript e utiliza várias APIs para obter dados em tempo real do sistema de supervisão de grãos.
@@ -21,7 +20,7 @@ O Grain Guardian é um sistema de supervisório para monitoramento de recebiment
 ┌────────────┐        ┌────────────┐        ┌────────────┐
 │            │        │            │        │            │
 │  Frontend  │<------>│  Backend   │<------>│  Sensores/ │
-│   React    │  HTTP  │   API      │  MQTT  │ Controladores│
+│   React    │  HTTP  │   API      │ OPC UA │  CLP       │
 │            │   WS   │            │        │            │
 └────────────┘        └────────────┘        └────────────┘
 ```
@@ -462,13 +461,174 @@ export const logger = {
 };
 ```
 
+## Integração com OPC UA
+
+Para integração com o CLP através do protocolo OPC UA, o backend precisa implementar um cliente OPC UA que se conecta ao servidor OPC UA do CLP. Abaixo estão os principais aspectos a serem considerados:
+
+### Cliente OPC UA
+
+O backend deve utilizar uma biblioteca cliente OPC UA (como node-opcua para Node.js) para estabelecer a conexão com o servidor OPC UA do CLP:
+
+```javascript
+// Exemplo de código para o backend (utilizando node-opcua)
+const { OPCUAClient, AttributeIds, TimestampsToReturn } = require("node-opcua");
+
+async function connectToOpcUaServer() {
+  const client = OPCUAClient.create({
+    applicationName: "GrainGuardian",
+    connectionStrategy: {
+      initialDelay: 1000,
+      maxRetry: 10
+    }
+  });
+  
+  // Conectar ao servidor OPC UA
+  const endpointUrl = "opc.tcp://IP_DO_CLP:4840";
+  await client.connect(endpointUrl);
+  
+  // Criar sessão
+  const session = await client.createSession();
+  
+  return { client, session };
+}
+
+// Função para ler valores do CLP
+async function readCLPValues(session, nodeId) {
+  try {
+    const dataValue = await session.read({
+      nodeId,
+      attributeId: AttributeIds.Value
+    });
+    return dataValue.value.value;
+  } catch (error) {
+    console.error(`Erro ao ler valor do CLP: ${error.message}`);
+    throw error;
+  }
+}
+
+// Função para escrever valores no CLP
+async function writeCLPValue(session, nodeId, value) {
+  try {
+    await session.write({
+      nodeId,
+      attributeId: AttributeIds.Value,
+      value: {
+        value: {
+          dataType: DataType.Double,
+          value
+        }
+      }
+    });
+    return true;
+  } catch (error) {
+    console.error(`Erro ao escrever valor no CLP: ${error.message}`);
+    throw error;
+  }
+}
+```
+
+### Mapeamento de Endpoints para Tags OPC UA
+
+Recomenda-se criar um mapeamento claro entre os endpoints da API e as tags OPC UA no CLP:
+
+```javascript
+// Exemplo de mapeamento
+const opcuaTagMapping = {
+  silos: {
+    'silo1.nivel': 'ns=2;s=SILO_01.NIVEL',
+    'silo1.temperatura': 'ns=2;s=SILO_01.TEMPERATURA',
+    'silo1.umidade': 'ns=2;s=SILO_01.UMIDADE',
+    // Outros tags...
+  },
+  secadores: {
+    'secador1.temperaturaEntrada': 'ns=2;s=SECADOR_01.TEMP_ENTRADA',
+    'secador1.temperaturaSaida': 'ns=2;s=SECADOR_01.TEMP_SAIDA',
+    // Outros tags...
+  },
+  // Outros equipamentos...
+};
+```
+
+### Monitoramento de Dados em Tempo Real
+
+Para dados em tempo real, configure a assinatura (subscription) OPC UA:
+
+```javascript
+async function setupSubscription(session, nodeId, callback) {
+  const subscription = await session.createSubscription2({
+    requestedPublishingInterval: 1000,
+    requestedLifetimeCount: 100,
+    requestedMaxKeepAliveCount: 10,
+    maxNotificationsPerPublish: 100,
+    publishingEnabled: true,
+    priority: 10
+  });
+
+  const monitoredItem = await subscription.monitor({
+    nodeId,
+    attributeId: AttributeIds.Value
+  },
+  {
+    samplingInterval: 1000,
+    discardOldest: true,
+    queueSize: 10
+  });
+
+  monitoredItem.on("changed", (dataValue) => {
+    callback(dataValue.value.value);
+  });
+
+  return subscription;
+}
+```
+
+### Considerações sobre Segurança
+
+Ao utilizar OPC UA, considere os seguintes aspectos de segurança:
+
+1. **Autenticação**: Configure a autenticação apropriada para o servidor OPC UA.
+2. **Criptografia**: Utilize comunicação criptografada quando possível.
+3. **Permissões**: Defina permissões adequadas para leitura/escrita de tags no CLP.
+
+### Exemplo de Implementação no Backend
+
+A API REST do backend deve fazer o intermédio entre as requisições do frontend e as comunicações OPC UA com o CLP:
+
+```javascript
+// Exemplo de API REST usando Express.js
+app.get('/api/silos/:id', async (req, res) => {
+  try {
+    const { session } = await getOpcUaSession();
+    const siloId = req.params.id;
+    
+    // Ler dados do CLP via OPC UA
+    const nivel = await readCLPValues(session, opcuaTagMapping.silos[`silo${siloId}.nivel`]);
+    const temperatura = await readCLPValues(session, opcuaTagMapping.silos[`silo${siloId}.temperatura`]);
+    const umidade = await readCLPValues(session, opcuaTagMapping.silos[`silo${siloId}.umidade`]);
+    
+    // Retornar dados para o frontend
+    res.json({
+      id: siloId,
+      nome: `Silo ${siloId}`,
+      nivelAtual: nivel,
+      temperatura,
+      umidade,
+      // Outros campos...
+    });
+  } catch (error) {
+    console.error(`Erro ao obter dados do silo ${siloId}:`, error);
+    res.status(500).json({ error: 'Falha ao obter dados do silo' });
+  }
+});
+```
+
 ## Conclusão
 
-Este guia fornece as bases para a integração do frontend do Grain Guardian com um backend personalizado. Adaptações específicas podem ser necessárias dependendo da implementação exata do backend desenvolvido pelo curso.
+Este guia fornece as bases para a integração do frontend do Grain Guardian com um backend personalizado que se comunica com CLPs via OPC UA. Adaptações específicas podem ser necessárias dependendo da implementação exata do backend desenvolvido pelo curso e dos modelos de CLPs utilizados.
 
 Para qualquer dúvida adicional ou suporte, consulte a documentação específica do curso ou entre em contato com os instrutores.
 
 ---
 
-**Versão:** 1.0  
+**Versão:** 1.1  
 **Última atualização:** 11/04/2025
