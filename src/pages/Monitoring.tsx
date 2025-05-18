@@ -50,7 +50,7 @@ const Monitoring = () => {
                 <TabsTrigger value="rosca">Transportadores por Rosca</TabsTrigger>
               </TabsList>
               
-              {Object.keys(equipmentData).filter(category => category !== 'fita').map((category) => (
+              {Object.keys(equipmentData).map((category) => (
                 <TabsContent value={category} key={category} className="mt-0">
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {equipmentData[category].map((equipment, index) => (
