@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Toaster } from '@/components/ui/toaster';
 import Header from '@/components/Header';
 import Sidebar from '@/components/Sidebar';
@@ -9,40 +9,16 @@ import { AlertCircle, CheckCircle, Info } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import EquipmentDetails from '@/components/EquipmentDetails';
-import { equipmentData, mapDbEquipmentToUiFormat } from '@/utils/equipmentData';
-import { getEquipmentByType } from '@/db/queries';
-import { Equipment } from '@/types/equipment';
+import { equipmentData } from '@/utils/equipmentData';
 
 const Monitoring = () => {
   const [selectedEquipment, setSelectedEquipment] = useState<any | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  // In a real implementation, we'd use state to store equipment data fetched from SQLite
-  // const [elevators, setElevators] = useState<Equipment[]>([]);
-  // const [chainConveyors, setChainConveyors] = useState<Equipment[]>([]);
-  // const [screwConveyors, setScrewConveyors] = useState<Equipment[]>([]);
 
   const handleEquipmentClick = (equipment: any) => {
     setSelectedEquipment(equipment);
     setDialogOpen(true);
   };
-
-  useEffect(() => {
-    // In a real implementation, we'd fetch equipment data from our SQLite database via an API
-    // const fetchEquipmentData = async () => {
-    //   try {
-    //     const elevatorsData = await getEquipmentByType('elevator');
-    //     const chainData = await getEquipmentByType('chain');
-    //     const screwData = await getEquipmentByType('screw');
-    //
-    //     setElevators(elevatorsData.map(mapDbEquipmentToUiFormat));
-    //     setChainConveyors(chainData.map(mapDbEquipmentToUiFormat));
-    //     setScrewConveyors(screwData.map(mapDbEquipmentToUiFormat));
-    //   } catch (error) {
-    //     console.error('Error fetching equipment data:', error);
-    //   }
-    // };
-    // fetchEquipmentData();
-  }, []);
 
   const getStatusIndicator = (status: string) => {
     switch (status) {
