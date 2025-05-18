@@ -44,14 +44,13 @@ const Monitoring = () => {
           <div className="flex-1 overflow-auto p-4 md:p-6">
             <h1 className="text-2xl font-bold mb-6">Monitoramento</h1>
             <Tabs defaultValue="elevadores" className="w-full">
-              <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+              <TabsList className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
                 <TabsTrigger value="elevadores">Elevadores</TabsTrigger>
                 <TabsTrigger value="corrente">Transportadores por Corrente</TabsTrigger>
-                <TabsTrigger value="fita">Transportadores por Fita</TabsTrigger>
                 <TabsTrigger value="rosca">Transportadores por Rosca</TabsTrigger>
               </TabsList>
               
-              {Object.keys(equipmentData).map((category) => (
+              {Object.keys(equipmentData).filter(category => category !== 'fita').map((category) => (
                 <TabsContent value={category} key={category} className="mt-0">
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {equipmentData[category].map((equipment, index) => (

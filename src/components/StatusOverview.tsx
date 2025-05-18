@@ -1,3 +1,4 @@
+
 import React from 'react';
 import SensorCard from './SensorCard';
 import { Gauge, Truck, Database, ArrowRight, Send } from 'lucide-react';
@@ -25,14 +26,14 @@ const StatusOverview: React.FC = () => {
         icon={<Database size={20} />}
       />
       <SensorCard
-        title="Linha Suja"
+        title="Corrente"
         value={120}
         unit="ton/h"
         status="warning"
         icon={<ArrowRight size={20} />}
       />
       <SensorCard
-        title="Linha Limpa"
+        title="Rosca"
         value={85}
         unit="ton/h"
         status="normal"

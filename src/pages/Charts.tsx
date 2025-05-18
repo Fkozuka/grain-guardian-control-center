@@ -24,7 +24,6 @@ const Charts = () => {
     return [
       ...equipmentList.elevadores,
       ...equipmentList.corrente,
-      ...equipmentList.fita,
       ...equipmentList.rosca
     ];
   }, []);
@@ -65,10 +64,9 @@ const Charts = () => {
             </div>
             
             <Tabs defaultValue="elevadores" className="w-full">
-              <TabsList className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-6">
+              <TabsList className="grid grid-cols-2 md:grid-cols-3 gap-2 mb-6">
                 <TabsTrigger value="elevadores">Elevadores</TabsTrigger>
                 <TabsTrigger value="corrente">Transportadores por Corrente</TabsTrigger>
-                <TabsTrigger value="fita">Transportadores por Fita</TabsTrigger>
                 <TabsTrigger value="rosca">Transportadores por Rosca</TabsTrigger>
               </TabsList>
               
@@ -83,14 +81,6 @@ const Charts = () => {
               <TabsContent value="corrente" className="mt-0">
                 <EquipmentCharts 
                   type="corrente" 
-                  period={period} 
-                  selectedEquipment={selectedEquipment} 
-                />
-              </TabsContent>
-              
-              <TabsContent value="fita" className="mt-0">
-                <EquipmentCharts 
-                  type="fita" 
                   period={period} 
                   selectedEquipment={selectedEquipment} 
                 />

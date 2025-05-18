@@ -2,7 +2,7 @@
 // Mock data for charts
 
 // Equipment categories
-export type EquipmentType = 'elevadores' | 'corrente' | 'fita' | 'rosca';
+export type EquipmentType = 'elevadores' | 'corrente' | 'rosca';
 
 // Generate random failures data for charts
 export const generateFailureData = (days = 30) => {
@@ -86,7 +86,6 @@ export const generateReceptionProgressData = (hours = 24) => {
 export const equipmentList: Record<EquipmentType, string[]> = {
   elevadores: ['Elevador 1', 'Elevador 2', 'Elevador 3'],
   corrente: ['Transportador por Corrente 1', 'Transportador por Corrente 2'],
-  fita: ['Transportador por Fita 1', 'Transportador por Fita 2', 'Transportador por Fita 3'],
   rosca: ['Transportador por Rosca 1', 'Transportador por Rosca 2']
 };
 

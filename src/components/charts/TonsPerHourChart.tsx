@@ -32,7 +32,6 @@ const TonsPerHourChart: React.FC<TonsPerHourChartProps> = ({ equipmentList, sele
     const allData = [
       ...generateTonsPerHourData(equipmentList.elevadores),
       ...generateTonsPerHourData(equipmentList.corrente),
-      ...generateTonsPerHourData(equipmentList.fita),
       ...generateTonsPerHourData(equipmentList.rosca)
     ];
     

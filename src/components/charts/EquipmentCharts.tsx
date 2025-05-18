@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { 
   BarChart, 
@@ -57,7 +56,6 @@ const EquipmentCharts: React.FC<EquipmentChartsProps> = ({ type, period, selecte
   const equipmentList = {
     elevadores: ['Elevador 1', 'Elevador 2', 'Elevador 3'],
     corrente: ['Transportador por Corrente 1', 'Transportador por Corrente 2'],
-    fita: ['Transportador por Fita 1', 'Transportador por Fita 2', 'Transportador por Fita 3'],
     rosca: ['Transportador por Rosca 1', 'Transportador por Rosca 2']
   };
   
