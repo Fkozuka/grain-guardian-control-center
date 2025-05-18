@@ -3,9 +3,10 @@
 export const equipmentData: Record<string, any[]> = {
   elevadores: Array.from({ length: 17 }, (_, i) => {
     const number = i + 1;
+    const numberFormatted = number.toString().padStart(2, '0');
     const status = Math.random() > 0.8 ? 'error' : (Math.random() > 0.7 ? 'warning' : 'running');
     return {
-      name: `Elevador ${number}`,
+      name: `EL-${numberFormatted}`,
       type: 'elevator',
       status,
       currentAmpere: status === 'error' ? 0.2 : 8 + Math.random() * 8,
@@ -24,9 +25,10 @@ export const equipmentData: Record<string, any[]> = {
   }),
   corrente: Array.from({ length: 38 }, (_, i) => {
     const number = i + 1;
+    const numberFormatted = number.toString().padStart(2, '0');
     const status = Math.random() > 0.8 ? 'error' : (Math.random() > 0.7 ? 'warning' : 'running');
     return {
-      name: `Transportador por Corrente ${number}`,
+      name: `TC-${numberFormatted}`,
       type: 'chain',
       status,
       currentAmpere: status === 'error' ? 0.1 : 7 + Math.random() * 4,
@@ -45,9 +47,10 @@ export const equipmentData: Record<string, any[]> = {
   }),
   rosca: Array.from({ length: 10 }, (_, i) => {
     const number = i + 1;
+    const numberFormatted = number.toString().padStart(2, '0');
     const status = Math.random() > 0.8 ? 'error' : (Math.random() > 0.7 ? 'warning' : 'running');
     return {
-      name: `Transportador por Rosca ${number}`,
+      name: `RT-${numberFormatted}`,
       type: 'screw',
       status,
       currentAmpere: status === 'error' ? 0.1 : 6 + Math.random() * 5,
