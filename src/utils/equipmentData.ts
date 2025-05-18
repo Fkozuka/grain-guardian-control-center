@@ -1,8 +1,11 @@
 
+import { Equipment } from '@/types/equipment';
+
 // Mock data for equipment monitoring
-export const equipmentData: Record<string, any[]> = {
+export const equipmentData: Record<string, Equipment[]> = {
   elevadores: [
     {
+      id: 1,
       name: 'Elevador 1',
       type: 'elevator',
       status: 'running',
@@ -20,6 +23,7 @@ export const equipmentData: Record<string, any[]> = {
       }
     },
     {
+      id: 2,
       name: 'Elevador 2',
       type: 'elevator',
       status: 'warning',
@@ -37,6 +41,7 @@ export const equipmentData: Record<string, any[]> = {
       }
     },
     {
+      id: 3,
       name: 'Elevador 3',
       type: 'elevator',
       status: 'error',
@@ -56,6 +61,7 @@ export const equipmentData: Record<string, any[]> = {
   ],
   corrente: [
     {
+      id: 4,
       name: 'Transportador por Corrente 1',
       type: 'chain',
       status: 'running',
@@ -73,6 +79,7 @@ export const equipmentData: Record<string, any[]> = {
       }
     },
     {
+      id: 5,
       name: 'Transportador por Corrente 2',
       type: 'chain',
       status: 'running',
@@ -90,61 +97,9 @@ export const equipmentData: Record<string, any[]> = {
       }
     }
   ],
-  fita: [
-    {
-      name: 'Transportador por Fita 1',
-      type: 'belt',
-      status: 'warning',
-      currentAmpere: 15.8,
-      details: {
-        emergencia: true,
-        bloqueio: true,
-        intertravado: true,
-        chaveAuto: true,
-        falhaPartida: false,
-        falhaTempMancal: false,
-        falhaEmbuchamento: true,
-        falhaRotacao: false,
-        confirmaPartida: true
-      }
-    },
-    {
-      name: 'Transportador por Fita 2',
-      type: 'belt',
-      status: 'running',
-      currentAmpere: 12.3,
-      details: {
-        emergencia: true,
-        bloqueio: true,
-        intertravado: true,
-        chaveAuto: true,
-        falhaPartida: false,
-        falhaTempMancal: false,
-        falhaEmbuchamento: false,
-        falhaRotacao: false,
-        confirmaPartida: true
-      }
-    },
-    {
-      name: 'Transportador por Fita 3',
-      type: 'belt',
-      status: 'error',
-      currentAmpere: 0.0,
-      details: {
-        emergencia: false,
-        bloqueio: true,
-        intertravado: false,
-        chaveAuto: true,
-        falhaPartida: true,
-        falhaTempMancal: false,
-        falhaEmbuchamento: false,
-        falhaRotacao: true,
-        confirmaPartida: false
-      }
-    }
-  ],
   rosca: [
     {
+      id: 9,
       name: 'Transportador por Rosca 1',
       type: 'screw',
       status: 'running',
@@ -162,6 +117,7 @@ export const equipmentData: Record<string, any[]> = {
       }
     },
     {
+      id: 10,
       name: 'Transportador por Rosca 2',
       type: 'screw',
       status: 'warning',
@@ -179,4 +135,28 @@ export const equipmentData: Record<string, any[]> = {
       }
     }
   ]
+};
+
+// This function would be used in a real implementation to map database results to the format expected by the UI
+export const mapDbEquipmentToUiFormat = (dbEquipment: any): Equipment => {
+  return {
+    id: dbEquipment.id,
+    name: dbEquipment.name,
+    type: dbEquipment.type,
+    status: dbEquipment.status,
+    currentAmpere: dbEquipment.current_ampere,
+    details: {
+      emergencia: Boolean(dbEquipment.details?.emergencia),
+      bloqueio: Boolean(dbEquipment.details?.bloqueio),
+      intertravado: Boolean(dbEquipment.details?.intertravado),
+      chaveAuto: Boolean(dbEquipment.details?.chave_auto),
+      falhaPartida: Boolean(dbEquipment.details?.falha_partida),
+      falhaTempMancal: Boolean(dbEquipment.details?.falha_temp_mancal),
+      falhaTempMancalSuperior: Boolean(dbEquipment.details?.falha_temp_mancal_superior),
+      falhaTempMancalInferior: Boolean(dbEquipment.details?.falha_temp_mancal_inferior),
+      falhaEmbuchamento: Boolean(dbEquipment.details?.falha_embuchamento),
+      falhaRotacao: Boolean(dbEquipment.details?.falha_rotacao),
+      confirmaPartida: Boolean(dbEquipment.details?.confirma_partida)
+    }
+  };
 };
